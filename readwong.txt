@@ -1,0 +1,5 @@
+Compile
+DOCKER_BUILDKIT=1 docker build . -t localgpt
+
+Run
+docker run --runtime=nvidia -it --mount src="$HOME/.cache",target=/root/.cache,type=bind -p 80:5111 localgpt

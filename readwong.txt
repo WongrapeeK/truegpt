@@ -3,3 +3,11 @@ DOCKER_BUILDKIT=1 docker build . -t localgpt
 
 Run
 docker run --runtime=nvidia -it --mount src="$HOME/.cache",target=/root/.cache,type=bind -p 80:5111 localgpt
+
+echo "# truegpt" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:WongrapeeK/truegpt.git
+git push -u origin main

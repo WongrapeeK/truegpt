@@ -2,6 +2,7 @@
 langchain==0.0.310
 chromadb==0.4.13
 llama-cpp-python==0.2.11
+#exllama
 torch==2.0.1
 #torch
 #torchvision

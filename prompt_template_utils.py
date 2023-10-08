@@ -11,7 +11,9 @@ from langchain.prompts import PromptTemplate
 
 #system_prompt = """You are a helpful assistant, you will use the provided context to answer user questions. Read the given context before answering questions and think step by step. If you can not answer a user question based on the provided context, inform the user. Do not use any other information for answering user. Provide all detailed answer to the question."""
 
-system_prompt = """It is an instruction that describes a task. Write a answer that appropriately completes the request. Provide all detailed answer to the question."""
+#system_prompt = """Use the provided context to answer user questions. Read the given context before answering questions and think step by step. If you can not answer a user question based on the provided context, inform the user. Do not use any other information for answering user. Provide detailed answer to the question."""
+
+system_prompt = """It is an instruction that describes a task. Write a answer that appropriately completes the request and direct to the point. Provide detailed answer to the question."""
 
 
 def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=False):
@@ -62,13 +64,13 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 system_prompt
                 +
-                """, {context}, {history}\n\nQuestion: {question}\nAnswer:"""
+                """,\n{context},\n{history},\n\nQuestion:\n{question}\nAnswer:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
             prompt_template = (
                 system_prompt
-                + """, {context}\n\nQuestion: {question}\nAnswer:"""
+                + """,\n{context},\n\nQuestion:\n{question}\nAnswer:"""
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
      

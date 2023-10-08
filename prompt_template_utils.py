@@ -60,24 +60,24 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
     elif promptTemplate_type == "truegpt":
         if history:
             prompt_template = (system_prompt + 
-                """\n### Instruction:\nContext:\n{history}\n{context},\nUser:{question}\n\n### Response:"""
+                """\n### Instruction:\nContext:\n{history}\n{context}\nUser:{question}\n\n### Response:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
             prompt_template = (system_prompt +
-                """\n### Instruction:\nContext:{context},\nUser:{question}\n\n### Response:"""
+                """\n### Instruction:\nContext:{context}\nUser:{question}\n\n### Response:"""
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
    
     elif promptTemplate_type == "orca":
         if history:
             prompt_template = (
-                """### Instruction:\n\n""" + system_prompt + """\nContext:\n{history}\n{context},\nUser:{question}\n\n### Response:"""
+                """### Instruction:\n\n""" + system_prompt + """\nContext:\n{history}\n{context}\nUser:{question}\n\n### Response:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
             prompt_template = (
-                """### Instruction:\n\n""" + system_prompt + """\nContext:{context},\nUser:{question}\n\n### Response:"""
+                """### Instruction:\n\n""" + system_prompt + """\nContext:{context}\nUser:{question}\n\n### Response:"""
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
     

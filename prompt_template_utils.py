@@ -11,7 +11,7 @@ from langchain.prompts import PromptTemplate
 
 #system_prompt = """You are a helpful assistant, you will use the provided context to answer user questions. Read the given context before answering questions and think step by step. If you can not answer a user question based on the provided context, inform the user. Do not use any other information for answering user. Provide all detailed answer to the question."""
 
-system_prompt = """Below is an instruction that describes a task. Write a answer that appropriately completes the request. Provide all detailed answer to the question."""
+system_prompt = """It is an instruction that describes a task. Write a answer that appropriately completes the request. Provide all detailed answer to the question."""
 
 
 def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=False):
@@ -62,20 +62,13 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 system_prompt
                 +
-""", {context}, {history}
-
-Question: {question}
-Answer:"""
+                """, {context}, {history}\n\nQuestion: {question}\nAnswer:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
             prompt_template = (
                 system_prompt
-                + 
-""", {context}
-
-Question: {question}
-Answer:"""
+                + """, {context}\n\nQuestion: {question}\nAnswer:"""
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
      

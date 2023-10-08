@@ -37,7 +37,6 @@ from constants import (
     MODELS_PATH,
 )
 
-
 def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
     """
     Select a model for text generation using the HuggingFace library.
@@ -77,7 +76,7 @@ def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
     # main_classes/text_generation#transformers.GenerationConfig.from_pretrained.returns
 
     # Create a pipeline for text generation
-    streamer = TextStreamer(tokenizer)
+    streamer = TextStreamer(tokenizer,skip_prompt=True)
     pipe = pipeline(
         "text-generation",
         model=model,
@@ -161,7 +160,6 @@ def retrieval_qa_pipline(device_type, use_history, promptTemplate_type=None):
 
     return qa
 
-
 # chose device typ to run on as well as to show source documents.
 @click.command()
 @click.option(
@@ -244,20 +242,13 @@ def main(device_type, show_sources, use_history, model_type):
     qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="truegpt")
     # Interactive questions and answers
 
-    while True:
+    logging.getLogger().setLevel(logging.ERROR)
+
+    while True: 
         query = input("\nTrue's GPT query: ").strip()
         if query == "exit":
             break
-        # Get the answer from the chain
-#        res = qa(query)
-#        answer = res["result"]
-
-        # Print the result
-#        print("\n\n> Question:")
-#        print(query)
-#        print("\n> Answer:")
-#        print(answer)
-
+        print("<<<< True's GPT answer >>>>")
         qa.run(query)
 
 if __name__ == "__main__":

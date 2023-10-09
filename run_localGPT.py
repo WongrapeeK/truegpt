@@ -3,6 +3,7 @@ import logging
 import click
 import torch
 import readline
+import nltk
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.llms import HuggingFacePipeline
@@ -10,6 +11,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler 
 from langchain.callbacks.manager import CallbackManager
 from chromadb.config import Settings
 from transformers import TextStreamer
+from nltk.tokenize import word_tokenize
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
@@ -36,6 +38,8 @@ from constants import (
     MAX_NEW_TOKENS,
     MODELS_PATH,
 )
+
+nltk.download('punkt')
 
 def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
     """
@@ -160,6 +164,10 @@ def retrieval_qa_pipline(device_type, use_history, promptTemplate_type=None):
 
     return qa
 
+def count_tokens(text):
+    tokens = word_tokenize(text)
+    return len(tokens)
+
 # chose device typ to run on as well as to show source documents.
 @click.command()
 @click.option(
@@ -210,6 +218,7 @@ def retrieval_qa_pipline(device_type, use_history, promptTemplate_type=None):
     ),
     help="model type, llama, mistral or non_llama",
 )
+
 def main(device_type, show_sources, use_history, model_type):
     """
     Implements the main information retrieval task for a localGPT.
@@ -239,17 +248,21 @@ def main(device_type, show_sources, use_history, model_type):
     if not os.path.exists(MODELS_PATH):
         os.mkdir(MODELS_PATH)
 
-    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="truegpt")
+    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="orca")
     # Interactive questions and answers
 
     logging.getLogger().setLevel(logging.ERROR)
 
     while True: 
-        query = input("\nTrue's GPT query: ").strip()
+        query = input("\nTrue's AI query: ").strip()
         if query == "exit":
             break
-        print("<<<< True's GPT answer >>>>")
-        qa.run(query)
+        in_tokens = count_tokens(query)
+        print("<<<< True's AI answer >>>>")
+        res = qa(query)
+        out_tokens = count_tokens(str(res))
+        total_token = in_tokens + out_tokens
+        print("\nTotal Token:",total_token,", Price:",round(total_token*0.00222,2),"Baht")
 
 if __name__ == "__main__":
     logging.basicConfig(

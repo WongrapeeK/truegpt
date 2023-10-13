@@ -248,7 +248,8 @@ def main(device_type, show_sources, use_history, model_type):
     if not os.path.exists(MODELS_PATH):
         os.mkdir(MODELS_PATH)
 
-    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="orca")
+#    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="orca")
+    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="truegpt")
     # Interactive questions and answers
 
     logging.getLogger().setLevel(logging.ERROR)

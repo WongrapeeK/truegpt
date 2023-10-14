@@ -101,8 +101,7 @@ def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
     return local_llm
 
 
-#def retrieval_qa_pipline(device_type, use_history, promptTemplate_type="llama"):
-def retrieval_qa_pipline(device_type, use_history, promptTemplate_type=None):
+def retrieval_qa_pipline(device_type, use_history, promptTemplate_type="uncen"):
     """
     Initializes and returns a retrieval-based Question Answering (QA) pipeline.
 
@@ -214,7 +213,7 @@ def count_tokens(text):
     "--model_type",
     default="llama",
     type=click.Choice(
-        ["llama", "mistral", "non_llama"],
+        ["llama", "mistral", "non_llama", "uncen", "orca"],
     ),
     help="model type, llama, mistral or non_llama",
 )
@@ -248,8 +247,7 @@ def main(device_type, show_sources, use_history, model_type):
     if not os.path.exists(MODELS_PATH):
         os.mkdir(MODELS_PATH)
 
-#    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="orca")
-    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type="truegpt")
+    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type=model_type)
     # Interactive questions and answers
 
     logging.getLogger().setLevel(logging.ERROR)
@@ -263,6 +261,8 @@ def main(device_type, show_sources, use_history, model_type):
         res = qa(query)
         out_tokens = count_tokens(str(res))
         total_token = in_tokens + out_tokens
+        if model_type is "mistral"
+            print(res["result"])
         print("\nTotal Token:",total_token,", Price:",round(total_token*0.00222,2),"Baht")
 
 if __name__ == "__main__":

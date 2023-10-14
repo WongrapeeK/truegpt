@@ -99,8 +99,9 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"  # Uses 1.5 GB of VRAM (High Ac
 #MODEL_BASENAME = "mistral-7b-instruct-v0.1.Q8_0.gguf"
 #MODEL_BRANCH = "main"
 
-# MODEL_ID = "TheBloke/Llama-2-70b-Chat-GGUF"
-# MODEL_BASENAME = "llama-2-70b-chat.Q4_K_M.gguf"
+MODEL_ID = "TheBloke/Mistral-7B-OpenOrca-GGUF"
+MODEL_BASENAME = "mistral-7b-openorca.Q8_0.gguf"
+MODEL_BRANCH = "main"
 
 ####
 #### (FOR HF MODELS)
@@ -135,13 +136,12 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"  # Uses 1.5 GB of VRAM (High Ac
 ##### 24GB VRAM Graphics Cards (RTX 3090 - RTX 4090 (35% Faster) - RTX A5000 - RTX A5500) #####
 
 ### 13b GPTQ Models for 24GB GPUs (*** With best embedding model: hkunlp/instructor-xl ***)
-MODEL_ID = "TheBloke/Amethyst-13B-Mistral-GPTQ"
-MODEL_BASENAME = "model.safetensors"
-MODEL_BRANCH = "gptq-8bit-32g-actorder_True"
-#MODEL_ID = "TheBloke/OpenOrca-Platypus2-13B-GPTQ"
+#MODEL_ID = "TheBloke/Amethyst-13B-Mistral-GPTQ"
 #MODEL_BASENAME = "model.safetensors"
+#MODEL_BRANCH = "gptq-8bit-32g-actorder_True"
+#MODEL_ID = "TheBloke/OpenOrca-Platypus2-13B-GGUF"
+#MODEL_BASENAME = "openorca-platypus2-13b.Q8_0.gguf"
 #MODEL_BRANCH = "main"
-#MODEL_BRANCH = "gptq-8bit-128g-actorder_True"
 
 # MODEL_ID = "TheBloke/Nous-Hermes-13B-GPTQ"
 # MODEL_BASENAME = "nous-hermes-13b-GPTQ-4bit-128g.no-act.order"

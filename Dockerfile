@@ -10,10 +10,10 @@ RUN apt-get -y remove python3-blinker
 # only copy what's needed at every step to optimize layer cache
 COPY ./requirements.txt .
 # use BuildKit cache mount to drastically reduce redownloading from pip on repeated builds
-#RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
-#RUN dpkg -i cuda-keyring_1.0-1_all.deb
-#RUN apt-get update && apt-get -y install cuda-11-8
-#ENV TORCH_CUDA_ARCH_LIST="7.0 7.5 8.0 8.6+PTX"
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
+RUN dpkg -i cuda-keyring_1.0-1_all.deb
+RUN apt-get update && apt-get -y install cuda-11-8
+ENV TORCH_CUDA_ARCH_LIST="7.0 7.5 8.0 8.6+PTX"
 RUN --mount=type=cache,target=/root/.cache CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install --timeout 100 -r requirements.txt
 COPY SOURCE_DOCUMENTS ./SOURCE_DOCUMENTS
 COPY ingest.py constants.py ./
@@ -31,7 +31,7 @@ COPY . .
 ENV device_type=cuda
 
 #CMD python run_localGPT.py --device_type $device_type --use_history
-CMD python run_localGPT.py --device_type $device_type
+CMD python run_localGPT.py --device_type $device_type --model_type orca
 
 #CMD python run_localGPT_API.py --device_type $device_type & python /localGPTUI/localGPTUI.py --host 0.0.0.0
 

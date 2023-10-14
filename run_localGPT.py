@@ -261,7 +261,7 @@ def main(device_type, show_sources, use_history, model_type):
         res = qa(query)
         out_tokens = count_tokens(str(res))
         total_token = in_tokens + out_tokens
-        if model_type is "mistral"
+        if model_type == "mistral":
             print(res["result"])
         print("\nTotal Token:",total_token,", Price:",round(total_token*0.00222,2),"Baht")
 

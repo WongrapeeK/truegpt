@@ -99,9 +99,10 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"  # Uses 1.5 GB of VRAM (High Ac
 #MODEL_BASENAME = "mistral-7b-instruct-v0.1.Q8_0.gguf"
 #MODEL_BRANCH = "main"
 
-MODEL_ID = "TheBloke/Mistral-7B-OpenOrca-GGUF"
-MODEL_BASENAME = "mistral-7b-openorca.Q8_0.gguf"
-MODEL_BRANCH = "main"
+#MODEL_ID = "TheBloke/Mistral-7B-OpenOrca-GGUF"
+#MODEL_BASENAME = "mistral-7b-openorca.Q8_0.gguf"
+#MODEL_BRANCH = "main"
+#MODEL_PROMPT = "mistral"
 
 ####
 #### (FOR HF MODELS)
@@ -139,9 +140,10 @@ MODEL_BRANCH = "main"
 #MODEL_ID = "TheBloke/Amethyst-13B-Mistral-GPTQ"
 #MODEL_BASENAME = "model.safetensors"
 #MODEL_BRANCH = "gptq-8bit-32g-actorder_True"
-#MODEL_ID = "TheBloke/OpenOrca-Platypus2-13B-GGUF"
-#MODEL_BASENAME = "openorca-platypus2-13b.Q8_0.gguf"
-#MODEL_BRANCH = "main"
+MODEL_ID = "TheBloke/OpenOrca-Platypus2-13B-GPTQ"
+MODEL_BASENAME = "model.safetensors"
+MODEL_BRANCH = "main"
+MODEL_PROMPT = "orca"
 
 # MODEL_ID = "TheBloke/Nous-Hermes-13B-GPTQ"
 # MODEL_BASENAME = "nous-hermes-13b-GPTQ-4bit-128g.no-act.order"

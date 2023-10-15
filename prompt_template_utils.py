@@ -39,10 +39,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 B_INST
                 + system_prompt
-                + """
-    
-            Context: {history} \n {context}
-            User: {question}"""
+                + """Context: {history}\n{context}\nUser: {question}\nAnswer:"""
                 + E_INST
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
@@ -50,14 +47,11 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 B_INST
                 + system_prompt
-                + """
-            
-            Context: {context}
-            User: {question}"""
+                + """Context: {context}\nUser: {question}\nAnswer:"""
                 + E_INST
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
-    elif promptTemplate_type == "truegpt":
+    elif promptTemplate_type == "uncen":
         if history:
             prompt_template = (system_prompt + 
                 """\n### Instruction:\nContext:\n{history}\n{context}\nUser:{question}\n\n### Response:"""

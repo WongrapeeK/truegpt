@@ -12,6 +12,7 @@ from langchain.callbacks.manager import CallbackManager
 from chromadb.config import Settings
 from transformers import TextStreamer
 from nltk.tokenize import word_tokenize
+from constants import MODEL_PROMPT
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
@@ -101,7 +102,7 @@ def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
     return local_llm
 
 
-def retrieval_qa_pipline(device_type, use_history, promptTemplate_type="uncen"):
+def retrieval_qa_pipline(device_type, use_history, promptTemplate_type=MODEL_PROMPT):
     """
     Initializes and returns a retrieval-based Question Answering (QA) pipeline.
 
@@ -247,7 +248,7 @@ def main(device_type, show_sources, use_history, model_type):
     if not os.path.exists(MODELS_PATH):
         os.mkdir(MODELS_PATH)
 
-    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type=model_type)
+    qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type=MODEL_PROMPT)
     # Interactive questions and answers
 
     logging.getLogger().setLevel(logging.ERROR)
@@ -256,12 +257,14 @@ def main(device_type, show_sources, use_history, model_type):
         query = input("\nTrue's AI query: ").strip()
         if query == "exit":
             break
+        if query == "":
+            continue
         in_tokens = count_tokens(query)
         print("<<<< True's AI answer >>>>")
         res = qa(query)
         out_tokens = count_tokens(str(res))
         total_token = in_tokens + out_tokens
-        if model_type == "mistral":
+        if MODEL_PROMPT == "mistral":
             print(res["result"])
         print("\nTotal Token:",total_token,", Price:",round(total_token*0.00222,2),"Baht")
 

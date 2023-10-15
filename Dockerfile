@@ -31,7 +31,7 @@ COPY . .
 ENV device_type=cuda
 
 #CMD python run_localGPT.py --device_type $device_type --use_history
-CMD python run_localGPT.py --device_type $device_type --model_type orca
+CMD python run_localGPT.py --device_type $device_type
 
 #CMD python run_localGPT_API.py --device_type $device_type & python /localGPTUI/localGPTUI.py --host 0.0.0.0
 

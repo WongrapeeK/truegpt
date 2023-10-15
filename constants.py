@@ -109,6 +109,11 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"  # Uses 1.5 GB of VRAM (High Ac
 #### (FOR HF MODELS)
 ####
 
+MODEL_ID = "Open-Orca/Mistral-7B-OpenOrca"
+MODEL_BASENAME = None
+MODEL_BRANCH = "main"
+MODEL_PROMPT = "chatml"
+
 # MODEL_ID = "NousResearch/Llama-2-7b-chat-hf"
 # MODEL_BASENAME = None
 # MODEL_ID = "TheBloke/vicuna-7B-1.1-HF"
@@ -143,11 +148,11 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"  # Uses 1.5 GB of VRAM (High Ac
 #MODEL_BRANCH = "gptq-8bit-32g-actorder_True"
 #MODEL_PROMPT = "uncen"
 
-MODEL_ID = "TheBloke/OpenOrca-Platypus2-13B-GPTQ"
-MODEL_BASENAME = "model.safetensors"
-MODEL_BRANCH = "main"
+#MODEL_ID = "TheBloke/OpenOrca-Platypus2-13B-GPTQ"
+#MODEL_BASENAME = "model.safetensors"
+#MODEL_BRANCH = "main"
 #MODEL_BRANCH = "gptq-8bit-128g-actorder_True"
-MODEL_PROMPT = "orca"
+#MODEL_PROMPT = "orca"
 
 # MODEL_ID = "TheBloke/Nous-Hermes-13B-GPTQ"
 # MODEL_BASENAME = "nous-hermes-13b-GPTQ-4bit-128g.no-act.order"

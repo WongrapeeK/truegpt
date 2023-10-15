@@ -12,7 +12,6 @@ from langchain.callbacks.manager import CallbackManager
 from chromadb.config import Settings
 from transformers import TextStreamer
 from nltk.tokenize import word_tokenize
-from constants import MODEL_PROMPT
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
@@ -38,6 +37,7 @@ from constants import (
     MODEL_BASENAME,
     MAX_NEW_TOKENS,
     MODELS_PATH,
+    MODEL_PROMPT,
 )
 
 nltk.download('punkt')

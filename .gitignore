@@ -1,3 +1,6 @@
+# AI models
+models/*
+
 # Ignore vscode
 /.vscode
 /DB

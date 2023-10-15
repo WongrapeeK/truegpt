@@ -9,29 +9,19 @@ from langchain.prompts import PromptTemplate
 
 # this is specific to Llama-2.
 
-#system_prompt = """Use the provided context to answer user questions. Read the given context before answering questions and think step by step. If you can not answer a user question based on the provided context, inform the user. Do not use any other information for answering user. Provide detailed answer to the question."""
-system_prompt = """Write a answer that appropriately completes the request. Provide detailed answer to the question."""
-#system_prompt = """It is an instruction that describes a task. Write a answer that appropriately completes the request and direct to the point. Provide detailed answer to the question."""
-
+system_prompt = """You name is MARI. AI to support any question for everyone build by TrueCorp. Write a answer that appropriately completes the request. Provide detailed answer to the question."""
 
 def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=False):
-    if promptTemplate_type == "llama":
-        B_INST, E_INST = "[INST]", "[/INST]"
-        B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
-        SYSTEM_PROMPT = B_SYS + system_prompt + E_SYS
+    if promptTemplate_type == "vicuna":
         if history:
-            instruction = """
-            Context: {history} \n {context}
-            User: {question}"""
-
-            prompt_template = B_INST + SYSTEM_PROMPT + instruction + E_INST
+            prompt_template = (system_prompt + 
+                """\nContext:\n{history}\n{context}\nUserQuestion:{question}\nAnswer:"""
+            )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
-            instruction = """
-            Context: {context}
-            User: {question}"""
-
-            prompt_template = B_INST + SYSTEM_PROMPT + instruction + E_INST
+            prompt_template = (system_prompt +
+                """\nContext:{context}\nUserQuestion:{question}\nAnswer:"""
+            )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
     elif promptTemplate_type == "mistral":
         B_INST, E_INST = "<s>[INST] ", " [/INST]"
@@ -39,7 +29,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 B_INST
                 + system_prompt
-                + """Context: {history}\n{context}\nUser: {question}\nAnswer:"""
+                + """Context: {history}\n{context}\nUserQuestion: {question}\nAnswer:"""
                 + E_INST
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
@@ -47,31 +37,31 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 B_INST
                 + system_prompt
-                + """Context: {context}\nUser: {question}\nAnswer:"""
+                + """Context: {context}\nUserQuestion: {question}\nAnswer:"""
                 + E_INST
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
     elif promptTemplate_type == "uncen":
         if history:
             prompt_template = (system_prompt + 
-                """\n### Instruction:\nContext:\n{history}\n{context}\nUser:{question}\n\n### Response:"""
+                """\n### Instruction:\nContext:\n{history}\n{context}\nUserQuestion:{question}\n\n### Answer:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
             prompt_template = (system_prompt +
-                """\n### Instruction:\nContext:{context}\nUser:{question}\n\n### Response:"""
+                """\n### Instruction:\nContext:{context}\nUserQuestion:{question}\n\n### Answer:"""
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
    
     elif promptTemplate_type == "orca":
         if history:
             prompt_template = (
-                """### Instruction:\n\n""" + system_prompt + """\nContext:\n{history}\n{context}\nUser:{question}\n\n### Response:"""
+                """### Instruction:\n\n""" + system_prompt + """\nContext:\n{history}\n{context}\nUserQuestion:{question}\n\n### Answer:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
             prompt_template = (
-                """### Instruction:\n\n""" + system_prompt + """\nContext:{context}\nUser:{question}\n\n### Response:"""
+                """### Instruction:\n\n""" + system_prompt + """\nContext:{context}\nUserQuestion:{question}\n\n### Answer:"""
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
     

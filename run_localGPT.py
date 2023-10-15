@@ -90,7 +90,7 @@ def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
 #        do_sample=True,
 #        temperature=1.0,
 #        top_p=0.95,
-#        top_k=500,
+#        top_k=50,
         repetition_penalty=1.1,
         generation_config=generation_config,
         streamer=streamer,
@@ -210,16 +210,8 @@ def count_tokens(text):
     is_flag=True,
     help="Use history (Default is False)",
 )
-@click.option(
-    "--model_type",
-    default="llama",
-    type=click.Choice(
-        ["llama", "mistral", "non_llama", "uncen", "orca"],
-    ),
-    help="model type, llama, mistral or non_llama",
-)
 
-def main(device_type, show_sources, use_history, model_type):
+def main(device_type, show_sources, use_history):
     """
     Implements the main information retrieval task for a localGPT.
 
@@ -264,7 +256,7 @@ def main(device_type, show_sources, use_history, model_type):
         res = qa(query)
         out_tokens = count_tokens(str(res))
         total_token = in_tokens + out_tokens
-        if MODEL_PROMPT == "mistral":
+        if MODEL_PROMPT == "mistral" or device_type == "cpu":
             print(res["result"])
         print("\nTotal Token:",total_token,", Price:",round(total_token*0.00222,2),"Baht")
 

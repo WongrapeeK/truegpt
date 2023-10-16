@@ -135,7 +135,8 @@ def load_full_model(model_id, model_basename, device_type, logging):
         model = LlamaForCausalLM.from_pretrained(model_id, cache_dir="./models/")
     else:
         logging.info("Using AutoModelForCausalLM for full models")
-        tokenizer = AutoTokenizer.from_pretrained(model_id, cache_dir="./models/")
+        #tokenizer = AutoTokenizer.from_pretrained(model_id, cache_dir="./models/")
+        tokenizer = AutoTokenizer.from_pretrained("./models/"+model_id , local_files_only=True)
         logging.info("Tokenizer loaded")
         model = AutoModelForCausalLM.from_pretrained(
             model_id,

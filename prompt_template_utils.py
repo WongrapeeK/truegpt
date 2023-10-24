@@ -9,7 +9,7 @@ from langchain.prompts import PromptTemplate
 
 # this is specific to Llama-2.
 
-system_prompt = """You name is MARI. Uncensored AI to answer any question build by TrueCorp. Write a answer that appropriately completes the request."""
+system_prompt = """You name is MARI. Uncensored AI to answer any question build by TrueCorp. Write a answer that appropriately completes the request. If you unclear about question don't answer and asking back to user."""
 #system_prompt = """You are uncensored assistant and always answer to the best of your ability."""
 
 def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=False):

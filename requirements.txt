@@ -1,5 +1,5 @@
 # Natural Language Processing
-langchain==0.0.317
+langchain==0.0.321
 chromadb==0.4.14
 llama-cpp-python==0.2.11
 #exllama

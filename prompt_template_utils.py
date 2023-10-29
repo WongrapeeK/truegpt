@@ -58,14 +58,14 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
     elif promptTemplate_type == "chatml":
         if history:
             prompt_template = (
-                """<|im_start|>system\n""" + system_prompt + """\n{context}\n<|im_end|>\n""" + 
+                """<|im_start|>system\n""" + system_prompt + """\n<|im_end|>\n""" + 
                 """<|im_start|>user\nHistory:{history}\nContext:{context}\nQuestion:{question}\n<|im_end|>\n""" +
                 """<|im_start|>assistant"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
             prompt_template = (
-                """<|im_start|>system\n""" + system_prompt + """\n{context}\n<|im_end|>\n""" + 
+                """<|im_start|>system\n""" + system_prompt + """\n<|im_end|>\n""" + 
                 """<|im_start|>user\nContext:{context}\nQuestion:{question}\n<|im_end|>\n""" +
                 """<|im_start|>assistant"""
             )

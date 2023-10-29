@@ -81,7 +81,7 @@ def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
     # main_classes/text_generation#transformers.GenerationConfig.from_pretrained.returns
 
     # Create a pipeline for text generation
-    streamer = TextStreamer(tokenizer,skip_prompt=True)
+    streamer = TextStreamer(tokenizer,skip_prompt=False)
     pipe = pipeline(
         "text-generation",
         model=model,

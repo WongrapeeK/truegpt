@@ -2,6 +2,7 @@ import torch
 from auto_gptq import AutoGPTQForCausalLM
 from huggingface_hub import hf_hub_download
 from langchain.llms import LlamaCpp
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 from transformers import (
     AutoModelForCausalLM,
@@ -47,6 +48,8 @@ def load_quantized_model_gguf_ggml(model_id, model_basename, device_type, loggin
             "n_ctx": CONTEXT_WINDOW_SIZE,
             "max_tokens": MAX_NEW_TOKENS,
             "n_batch": N_BATCH,  # set this based on your GPU & CPU RAM
+            "streaming": True,
+            "callbacks":[StreamingStdOutCallbackHandler()],
         }
         if device_type.lower() == "mps":
             kwargs["n_gpu_layers"] = 1

@@ -256,8 +256,7 @@ def main(device_type, show_sources, use_history):
         res = qa(query)
         out_tokens = count_tokens(str(res))
         total_token = in_tokens + out_tokens
-        if MODEL_PROMPT == "mistral" or device_type == "cpu":
-            print(res["result"])
+        # print(res["result"])
         print("\nTotal Token:",total_token,", Price:",round(total_token*0.00222,2),"Baht")
 
 if __name__ == "__main__":

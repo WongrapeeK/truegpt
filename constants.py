@@ -114,10 +114,10 @@ MODEL_BASENAME = None
 MODEL_BRANCH = "main"
 MODEL_PROMPT = "chatml"
 
-#MODEL_ID = "ehartford/dolphin-2.1-mistral-7b"
+#MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.1"
 #MODEL_BASENAME = None
 #MODEL_BRANCH = "main"
-#MODEL_PROMPT = "uncen"
+#MODEL_PROMPT = "mistral"
 
 # MODEL_ID = "NousResearch/Llama-2-7b-chat-hf"
 # MODEL_BASENAME = None

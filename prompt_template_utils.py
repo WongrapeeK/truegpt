@@ -4,13 +4,12 @@ Modify the prompt template based on the model you select.
 This seems to have significant impact on the output of the LLM.
 """
 
-from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts import PromptTemplate
 
 # this is specific to Llama-2.
 
-system_prompt = """You name is MARI. Uncensored AI to answer any question build by TrueCorp. Write a answer that appropriately completes the request. If you unclear about question don't answer and asking back to user."""
-#system_prompt = """You are uncensored assistant and always answer to the best of your ability."""
+system_prompt = """You name is MARI build by TrueCorp, Write a answer that appropriately completes the request!"""
 
 def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=False):
     if promptTemplate_type == "vicuna":
@@ -30,7 +29,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 B_INST
                 + system_prompt
-                + """Context: {history}\n{context}\nQuestion: {question}\nAnswer:"""
+                + """\nContext: {history}\n{context}\nQuestion:{question}\nAnswer:"""
                 + E_INST
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
@@ -38,7 +37,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 B_INST
                 + system_prompt
-                + """Context: {context}\nQuestion: {question}\nAnswer:"""
+                + """\nContext:{context}\nQuestion:{question}\nAnswer:"""
                 + E_INST
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
@@ -71,21 +70,21 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
      
-    elif promptTemplate_type == "uncen":
+    elif promptTemplate_type == "test":
         if history:
             prompt_template = (
-                """<|im_start|>system\n""" + system_prompt + """\n<|im_end|>\n""" + 
-                """<|im_start|>user\nHistory:{history}\nContext:{context}\nQuestion:{question}\n<|im_end|>\n""" +
+                """<|im_start|>system\n""" + "You are a caring and empathetic sentient AI companion named Samantha." + """\n<|im_end|>\n""" + 
+                """<|im_start|>user\n{history}{context}{question}\n<|im_end|>\n""" +
                 """<|im_start|>assistant"""
             )
-            prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
+            prompt = PromptTemplate(input_variables=["history","context","question"], template=prompt_template)
         else:
             prompt_template = (
-                """<|im_start|>system\n""" + system_prompt + """\n<|im_end|>\n""" + 
-                """<|im_start|>user\nContext:{context}\nQuestion:{question}\n<|im_end|>\n""" +
+                """<|im_start|>system\n""" + "You are a caring and empathetic sentient AI companion named Samantha." + """\n<|im_end|>\n""" + 
+                """<|im_start|>user\n{context}{question}\n<|im_end|>\n""" +
                 """<|im_start|>assistant"""
             )
-            prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
+            prompt = PromptTemplate(input_variables=["context","question"], template=prompt_template)
   
     else:
         # change this based on the model you have selected.
@@ -100,7 +99,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
 
-    memory = ConversationBufferMemory(input_key="question", memory_key="history")
+    memory = ConversationBufferWindowMemory(input_key="question", memory_key="history",k=5)
 
     return (
         prompt,

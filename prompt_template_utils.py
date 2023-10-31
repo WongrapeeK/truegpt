@@ -29,7 +29,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             prompt_template = (
                 B_INST
                 + system_prompt
-                + """\nContext: {history}\n{context}\nQuestion:{question}\nAnswer:"""
+                + """\n{history}\nContext:{context}\nQuestion:{question}\nAnswer:"""
                 + E_INST
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
@@ -45,7 +45,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
     elif promptTemplate_type == "orca":
         if history:
             prompt_template = (
-                """### Instruction:\n\n""" + system_prompt + """\nContext:\n{history}\n{context}\nQuestion:{question}\n\n### Answer:"""
+                """### Instruction:\n\n""" + system_prompt + """\n{history}\nContext:{context}\nQuestion:{question}\n\n### Answer:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
@@ -58,7 +58,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
         if history:
             prompt_template = (
                 """<|im_start|>system\n""" + system_prompt + """\n<|im_end|>\n""" + 
-                """<|im_start|>user\nHistory:{history}\nContext:{context}\nQuestion:{question}\n<|im_end|>\n""" +
+                """<|im_start|>user\n{history}\nContext:{context}\nQuestion:{question}\n<|im_end|>\n""" +
                 """<|im_start|>assistant"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
@@ -90,7 +90,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
         # change this based on the model you have selected.
         if history:
             prompt_template = (
-                system_prompt + """\nContext:{history}\n{context}\nQuestion:{question}\nAnswer:"""
+                system_prompt + """\n{history}\nContext:{context}\nQuestion:{question}\nAnswer:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
@@ -99,7 +99,7 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
 
-    memory = ConversationBufferWindowMemory(input_key="question", memory_key="history",k=5)
+    memory = ConversationBufferWindowMemory(input_key="question", memory_key="history",k=1)
 
     return (
         prompt,

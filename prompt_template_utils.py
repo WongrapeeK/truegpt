@@ -9,7 +9,7 @@ from langchain.prompts import PromptTemplate
 
 # this is specific to Llama-2.
 
-system_prompt = """You name is MARI build by TrueCorp, Write a answer that appropriately completes the request!"""
+system_prompt = """You are AI name MARI created by TrueCorp, Write a answer that appropriately completes the request!"""
 
 def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=False):
     if promptTemplate_type == "vicuna":
@@ -44,13 +44,13 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
    
     elif promptTemplate_type == "orca":
         if history:
-            prompt_template = (
-                """### Instruction:\n\n""" + system_prompt + """\n{history}\nContext:{context}\nQuestion:{question}\n\n### Answer:"""
+            prompt_template = (system_prompt +
+                """\n### Instruction:\n{history}\nContext:{context}\nQuestion:{question}\n\n### Answer:"""
             )
             prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
         else:
-            prompt_template = (
-                """### Instruction:\n\n""" + system_prompt + """\nContext:{context}\nQuestion:{question}\n\n### Answer:"""
+            prompt_template = (system_prompt +
+                """\n### Instruction:\nContext:{context}\nQuestion:{question}\n\n### Answer:"""
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
  

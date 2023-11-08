@@ -109,15 +109,15 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-xl" # Uses 5 GB of VRAM (Most Accurate
 #### (FOR HF MODELS)
 ####
 
-#MODEL_ID = "Open-Orca/Mistral-7B-OpenOrca"
-#MODEL_BASENAME = None
-#MODEL_BRANCH = "main"
-#MODEL_PROMPT = "chatml"
-
-MODEL_ID = "ehartford/dolphin-2.2.1-mistral-7b"
+MODEL_ID = "Open-Orca/Mistral-7B-OpenOrca"
 MODEL_BASENAME = None
 MODEL_BRANCH = "main"
 MODEL_PROMPT = "chatml"
+
+#MODEL_ID = "ehartford/dolphin-2.2.1-mistral-7b"
+#MODEL_BASENAME = None
+#MODEL_BRANCH = "main"
+#MODEL_PROMPT = "chatml"
 
 #MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.1"
 #MODEL_BASENAME = None

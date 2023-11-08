@@ -145,7 +145,7 @@ def load_full_model(model_id, model_basename, device_type, logging):
             device_map="auto",
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
-            cache_dir=MODELS_PATH,
+            #cache_dir=MODELS_PATH,
             trust_remote_code=True, # set these if you are using NVIDIA GPU
             # load_in_4bit=True,
             # bnb_4bit_quant_type="nf4",

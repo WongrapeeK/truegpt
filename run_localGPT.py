@@ -82,16 +82,29 @@ def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
 
     # Create a pipeline for text generation
     streamer = TextStreamer(tokenizer,skip_prompt=False)
+    """
+    top_k (int, optional, defaults to 50) — The number of highest probability vocabulary tokens to keep for top-k-filtering.
+    top_p (float, optional, defaults to 1.0) — If set to float < 1, only the smallest set of most probable tokens with probabilities that add up to top_p or higher are kept for generation.
+    temperature (float, optional, defaults to 1.0) — The value used to modulate the next token probabilities.
+    repetition_penalty (float, optional, defaults to 1.0) — The parameter for repetition penalty. 1.0 means no penalty. See this paper for more details.
+                                temp.	top_p.
+    Code Generation		0.2	0.1	Generates code that adheres to established patterns and conventions. Output is more deterministic and focused. Useful for generating syntactically correct code.
+    Creative Writing		0.7	0.8	Generates creative and diverse text for storytelling. Output is more exploratory and less constrained by patterns.
+    Chatbot Responses		0.5	0.5	Generates conversational responses that balance coherence and diversity. Output is more natural and engaging.
+    Code Comment Generation	0.3	0.2	Generates code comments that are more likely to be concise and relevant. Output is more deterministic and adheres to conventions.
+    Data Analysis Scripting	0.2	0.1	Generates data analysis scripts that are more likely to be correct and efficient. Output is more deterministic and focused.
+    Exploratory Code Writing	0.6	0.7	Generates code that explores alternative solutions and creative approaches. Output is less constrained by established patterns.
+    """
     pipe = pipeline(
         "text-generation",
         model=model,
         tokenizer=tokenizer,
         max_length=MAX_NEW_TOKENS,
-#        do_sample=True,
-#        temperature=1.0,
-#        top_p=0.95,
-#        top_k=50,
-#        repetition_penalty=1.1,
+        do_sample=True,
+        temperature=0.1,
+        top_p=0.1,
+        #top_k=50,
+        #repetition_penalty=1.5,
         generation_config=generation_config,
         streamer=streamer,
     )

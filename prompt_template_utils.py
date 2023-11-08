@@ -70,19 +70,19 @@ def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, h
             )
             prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
      
-    elif promptTemplate_type == "test":
+    elif promptTemplate_type == "openchat":
         if history:
             prompt_template = (
-                """<|im_start|>system\n""" + "You are a caring and empathetic sentient AI companion named Samantha." + """\n<|im_end|>\n""" + 
-                """<|im_start|>user\n{history}{context}{question}\n<|im_end|>\n""" +
-                """<|im_start|>assistant"""
+                "You are a caring and empathetic sentient AI companion named Samantha.<|end_of_turn|>" +
+                """\n{history}{context}{question}\n<|end_of_turn|>\n""" +
+                """assistant"""
             )
             prompt = PromptTemplate(input_variables=["history","context","question"], template=prompt_template)
         else:
             prompt_template = (
-                """<|im_start|>system\n""" + "You are a caring and empathetic sentient AI companion named Samantha." + """\n<|im_end|>\n""" + 
-                """<|im_start|>user\n{context}{question}\n<|im_end|>\n""" +
-                """<|im_start|>assistant"""
+                "You are a caring and empathetic sentient AI companion named Samantha.<|end_of_turn|>" +
+                """\n{context}{question}\n<|end_of_turn|>\n""" +
+                """assistant"""
             )
             prompt = PromptTemplate(input_variables=["context","question"], template=prompt_template)
   

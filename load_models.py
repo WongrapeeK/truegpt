@@ -45,6 +45,9 @@ def load_quantized_model_gguf_ggml(model_id, model_basename, device_type, loggin
         )
         kwargs = {
             "model_path": model_path,
+            "top_p": 0.1,
+            "temperature": 0.1,
+            #"presence_penalty": 1,
             "n_ctx": CONTEXT_WINDOW_SIZE,
             "max_tokens": MAX_NEW_TOKENS,
             "n_batch": N_BATCH,  # set this based on your GPU & CPU RAM

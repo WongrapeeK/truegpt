@@ -271,7 +271,7 @@ def main(device_type, show_sources, use_history):
 
     while True: 
         #query = input("\nTrue's AI query: ").strip()
-        query = custom_input(prompt="True's AI query multiline (Press '/' followed by Enter to finish)\n")
+        query = custom_input(prompt="True's AI query multiline (Press '/' followed by Enter to finish)\n").strip()
         if query == "exit":
             break
         if query == "":

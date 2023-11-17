@@ -4,6 +4,7 @@ import click
 import torch
 import readline
 import nltk
+
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.llms import HuggingFacePipeline
@@ -41,6 +42,16 @@ from constants import (
 )
 
 nltk.download('punkt')
+
+def custom_input(end_marker='/', prompt=''):
+    print(prompt, end='')
+    input_lines = []
+    while True:
+        line = input()
+        if line == end_marker:
+            break
+        input_lines.append(line)
+    return '\n'.join(input_lines)
 
 def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
     """
@@ -259,7 +270,8 @@ def main(device_type, show_sources, use_history):
     logging.getLogger().setLevel(logging.ERROR)
 
     while True: 
-        query = input("\nTrue's AI query: ").strip()
+        #query = input("\nTrue's AI query: ").strip()
+        query = custom_input(prompt="True's AI query multiline (Press '/' followed by Enter to finish)\n")
         if query == "exit":
             break
         if query == "":

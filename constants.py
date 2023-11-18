@@ -109,3 +109,13 @@ MODEL_PROMPT = "chatml"
 #MODEL_BASENAME = None
 #MODEL_BRANCH = "main"
 #MODEL_PROMPT = "vicuna"
+
+#MODEL_ID = "TheBloke/WizardLM-33B-V1.0-Uncensored-AWQ"
+#MODEL_BASENAME = None
+#MODEL_BRANCH = "main"
+#MODEL_PROMPT = "vicuna"
+
+#MODEL_ID = "TheBloke/OpenOrca-Platypus2-13B-AWQ"
+#MODEL_BASENAME = None
+#MODEL_BRANCH = "main"
+#MODEL_PROMPT = "orca"
